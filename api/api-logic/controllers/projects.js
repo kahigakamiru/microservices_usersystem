@@ -10,7 +10,7 @@ module.exports = {
     try {
       const { uid } = req.params;
       if (!uid) return res.status(400).send({ message: "User id is required" });
-      let result = await db.exec("getProjects", { user_id: uid });
+      let result = await db.exec("spGetProjects", { user_id: uid });
       const projects = parseResults(result);
       res.status(200).json({ projects });
     } catch (error) {
@@ -24,7 +24,7 @@ module.exports = {
     if (!uid || !pid)
       return res.status(400).send({ message: "Id is required" });
     try {
-      let result = await db.exec("getProjects", {
+      let result = await db.exec("spGetProjects", {
         user_id: uid,
         project_id: pid,
       });
@@ -58,7 +58,7 @@ module.exports = {
         description,
       } = req.body;
       const id = uuidv4();
-      const result = await db.exec("createOrUpdateProject", {
+      const result = await db.exec("spcreateUpdateProjects", {
         id,
         name,
         lead_user_id,
@@ -112,7 +112,7 @@ module.exports = {
       } = req.body;
 
       
-      await db.exec("createOrUpdateProject", {
+      await db.exec("spcreateUpdateProjects", {
         id:_id,
         name,
         lead_user_id,
@@ -132,7 +132,7 @@ module.exports = {
   getAssignProject: async (req, res) => {
     const { id } = req.params;
     if (!id) return res.status(400).send({ message: "Id is required" });
-    let { recordset } = await db.exec("getAssignedTeam", {
+    let { recordset } = await db.exec("spGetAssignedTeam", {
       project_id: id,
     });
     res.send({ team: recordset });
@@ -152,7 +152,7 @@ module.exports = {
       const { project_id, user_id } = req.body;
       for (let u_id of user_id) {
         const id = uuidv4();
-        await db.exec("assignProject", { id, project_id, user_id: u_id });
+        await db.exec("spAssignProjects", { id, project_id, user_id: u_id });
       }
 
       res.send({ message: "Users added to project successfully" });
