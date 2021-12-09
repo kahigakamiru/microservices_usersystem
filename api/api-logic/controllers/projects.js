@@ -1,4 +1,4 @@
-const db = require("../database");
+const db = require("../db");
 const { projectValidator } = require("../helpers/projectValidator");
 const { v4: uuidv4 } = require("uuid");
 const Joi = require("joi");
@@ -10,7 +10,7 @@ module.exports = {
     try {
       const { uid } = req.params;
       if (!uid) return res.status(400).send({ message: "User id is required" });
-      let result = await db.exec("spGetProjects", { user_id: uid });
+      let result = await db.exec("getProjects", { user_id: uid });
       const projects = parseResults(result);
       res.status(200).json({ projects });
     } catch (error) {
@@ -24,7 +24,7 @@ module.exports = {
     if (!uid || !pid)
       return res.status(400).send({ message: "Id is required" });
     try {
-      let result = await db.exec("spGetProjects", {
+      let result = await db.exec("getProjects", {
         user_id: uid,
         project_id: pid,
       });
@@ -58,7 +58,7 @@ module.exports = {
         description,
       } = req.body;
       const id = uuidv4();
-      const result = await db.exec("spcreateUpdateProjects", {
+      const result = await db.exec("createUpdateProjects", {
         id,
         name,
         lead_user_id,

@@ -1,19 +1,25 @@
-const express = require('express')
-const app = express()
-const PORT = 8000
+require('dotenv').config()
+const express = require("express")
+const app = express();
+const cors = require("cors");
+const config = require("./config");
 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+//Import Routes
+const {logicProjects} = require("./routes/projects");
+const {logicTasks} = require('./routes/tasks');
 
-app.listen(PORT, () => {
-    console.log('Server running', PORT);
-})
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+app.use(cors())
 
-app.post('/', (req,res) => {
-    res.send(req.body)
-    console.log(req.body)
-})
+// Routes
+app.use("/api/projects", logicProjects);
+app.use("/api/tasks", logicTasks);
 
 app.get('/', (req, res) => {
-    res.send("anything");
+    res.send({ status: "Ok", message: "Welcome" });
 })
+
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => console.log(`Server running on localhost ${PORT}`))

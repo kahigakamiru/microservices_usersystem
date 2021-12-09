@@ -1,16 +1,16 @@
 const express = require("express")
-const router = express.Router()
+const logicProjects = express.Router()
 
 const {getProjects, getProject, createProject, assignProject, getAssignProject, updateProject} = require("../controllers/projects")
 
-router.get("/:uid", getProjects);
-router.post("/", createProject);
-router.put("/", updateProject);
-router.get("/assign/:id", getAssignProject);
-router.post("/assign", assignProject);
+logicProjects.get("/:uid", getProjects);
+logicProjects.post("/", createProject);
+logicProjects.put("/", updateProject);
+logicProjects.get("/assign/:id", getAssignProject);
+logicProjects.post("/assign", assignProject);
 
-router.get("/:pid/user/:uid", getProject);
+logicProjects.get("/:pid/user/:uid", getProject);
 
 
 
-module.exports = router;
+module.exports = {logicProjects};

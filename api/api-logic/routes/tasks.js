@@ -1,12 +1,12 @@
 const express = require("express")
-const router = express.Router()
+const logicTasks = express.Router()
 
-const {getTasks, getTask, createTask} = require("../controllers/tasks")
+const {getTasks, getTask, createTask} = require("../controllers/Tasks")
 
-router.get("/:pid", getTasks);
-router.get("/:pid/:tid", getTask);
-router.post("/", createTask);
+logicTasks.get("/:pid", getTasks);
+logicTasks.get("/:pid/:tid", getTask);
+logicTasks.post("/", createTask);
 
 
 
-module.exports = router;
+module.exports = {logicTasks};

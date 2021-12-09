@@ -1,4 +1,4 @@
-const db = require("../database");
+const db = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const { taskValidator } = require("../helpers/taskValidator");
 const parser = require("../helpers/parser");
