@@ -8,7 +8,6 @@ logicProjects.post("/", createProject);
 logicProjects.put("/", updateProject);
 logicProjects.get("/assign/:id", getAssignProject);
 logicProjects.post("/assign", assignProject);
-
 logicProjects.get("/:pid/user/:uid", getProject);
 
 

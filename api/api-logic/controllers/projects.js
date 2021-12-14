@@ -112,7 +112,7 @@ module.exports = {
       } = req.body;
 
       
-      await db.exec("spcreateUpdateProjects", {
+      await db.exec("createUpdateProjects", {
         id:_id,
         name,
         lead_user_id,
@@ -132,7 +132,7 @@ module.exports = {
   getAssignProject: async (req, res) => {
     const { id } = req.params;
     if (!id) return res.status(400).send({ message: "Id is required" });
-    let { recordset } = await db.exec("spGetAssignedTeam", {
+    let { recordset } = await db.exec("getAssignedTeam", {
       project_id: id,
     });
     res.send({ team: recordset });
